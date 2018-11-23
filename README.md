@@ -1,19 +1,19 @@
 # Convert HTML to DOCX document
 # Author Amal Amrani 
-# Author URI: [Amal Amrani Website link](http://amrani.es/ "amrani.es")
+# Author URI: [amrani.es](http://amrani.es/ "Amal Amrani Website link")
 
 **convert_html_to_docx allows you to convert a HTML Document To Word .docx. The different elements supported and parsed by this library are the following:**
 
 
-Bold <strong>
-Cursive <em>
-Paragraph <p>
-Section  <div>
-Lists nested with bullets or numbered <ul> / <ol>
-Tables <table>
-Links <a href >
-Quotes <blockquote>
-Images <img>
+Bold `<strong>`
+Cursive `<em>`
+Paragraph `<p>`
+Section  `<div>`
+Lists nested with bullets or numbered `<ul> or <ol>`
+Tables `<table>`
+Links `<a href >`
+Quotes `<blockquote>`
+Images `<img>`
 
 The images must be in the same location as the HTML document in order to be accessed and converted.
 
