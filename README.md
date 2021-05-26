@@ -26,8 +26,8 @@ To use this converter, you only need to include the following files that are alr
 
 To save the .docx:
 
-jszip/dist/jszip.min.js 
-jszip/vendor/FileSaver.js
+Stuk-jszip/dist/jszip.min.js 
+Stuk-jszip/vendor/FileSaver.js
 
 To create the different documents that integrate and define the .docx structure:
 
