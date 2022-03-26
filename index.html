@@ -1,231 +1,58 @@
-<!DOCTYPE HTML>
-<html  lang="es">
+<!DOCTYPE html>
+<html>
 <head>
-<title>Conversor HTML-DOCX </title>
- <meta charset="utf-8"> 
+<title>Convert HTML to DOCX</title>
+<meta charset='utf-8'>
+<meta name="DC.description" content="Convert HTML to DOCX">
+<meta name="author" content="Amal Amrani, amal.amrani@gmail.com">
 
- <meta name="description" content="Librería de conversión de un documento HTML a documento de Word DOCX">
- <meta name="DC.description" content="Convesor de HTML a DOCX">
- <meta name="keywords" content="Conversor HTML a DOCX"/>
- 
- <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
- <meta name="author" content="Amal Amrani, amal.amrani@gmail.com">
+<link href="favicon.ico" rel="shortcut icon">
 
- <link href="favicon.ico" rel="shortcut icon">
-    
- <link rel="stylesheet" href="../../css/styles.css">
+<script type="text/javascript" src="jszip-master/dist/jszip.min.js"></script>
+ <script type="text/javascript" src="jszip-master/vendor/FileSaver.js"></script>
+<script type="text/javascript" src="convert_html_to_docx.js" charset="utf-8"></script>
 
+<script type="text/javascript">
 
+  
+    var filename = 'example.html';
 
-<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900' rel='stylesheet' type='text/css'>
-
-<script type='text/javascript' src='../../js/jquery-3.1.1.min.js'></script>
-
-<script type='text/javascript' src='../../js/screen.js'></script>
+    var xmlHTTP = new XMLHttpRequest();
    
+    try
+    {
+   
+		xmlHTTP.open("GET", filename, false);
+	
+        xmlHTTP.send(null); 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		var docText = xmlHTTP.responseText;
+        var parser = new DOMParser();
+        var docu = parser.parseFromString(docText, "text/html"); 
 
-  ga('create', 'UA-44043140-1', 'amrani.es');
-  ga('send', 'pageview');
+        // convert all Images url to data base64
+        convertAllUrlImagesToBase64(docu);
+        
+    }
+    catch (e) {
 
+    	alert ("The requested document was not found "+e);
+       
+    }
 
 </script>
 
-
-
 </head>
+
 <body>
 
-<?php
- 
-  
-?>
+<h1>Convert/Parse html to docx</h1>
+<h2>Example to create, from html document, a docx structure file and save it. </h2>
+<span>This is a .zip file with specific docx structure</span>
 
-  
-  <div id="container" class="plugin-page">  
-  <div id="wrapper"> 
-   
-    <div class="wrapper1 nospace-bottom"> 
-    <header id="header" >
-              
-            <div class="section group header1 content">
-
-                
-              
-                 <div id="logo"><a href="../../" ><img src="../../images/logoA.png" title="logo" alt="logo" /></a></div>           
-
-                  <div id="menu-container" >
-                  <div class="mobile-nav2 clickmenu"><i class="mobile-nav-elem"></i><i class="mobile-nav-elem"></i><i class="mobile-nav-elem"></i></div>
-                                                                  
-                  <nav id="main-nav2">
-                    <header>
-                          
-                    <div id="closeMenu2">close</div>
-                    </header>
-                    <div class="content-meu" >     
-                              
-                                <ul id="menu" class="menutype1">  
-                                  <li><a href="../../wp-plugins/index.php" class="menuoption" id="option-menu-plugins" >WP Plugins</a></li>                                                       
-                                  <li><a href="#contacto" class="menuoption" >Contact</a></li>
-
-                                </ul>
-                              </div>
-                  </nav>
-                </div>
-             
-             
+<h3>Wait a moment please, while the document is converted...</h3>
 
 
-            </div>
-
-          <div class="section group">
-         
-            <div class="banner"> 
-                <div class="banner-titles-container">
-                 
-                  <div id="titles2"><h1><span>Conversor</span><span class="plus">,</span> <span> HTML a DOCX</span></h1></div>
-
-                </div>
-            </div>
-          
-        </div>
-    </header>
-
-
-    
-      <section class="content" > 
-
-        <div class="section group section1_1">
-        <div class="col1 div_4cols_of_4 " id="" >
-            
-            <div class="intro ">
-
-              <strong>convert_html_to_docx</strong> es una librería que convierte un documento HTML a un documento de Word ".docx". 
-              Los diferentes elementos soportados y parseados por esta librería son los siguientes:
-              
-
-              <div id="conversor-elements">
-              <br /><br />
-              <ul class="alignLeft" style="list-style: none">
-
-              <li><strong>Negrita</strong> &lt;strong&gt; </li>
-              <li><strong><em>Cursiva</em></strong> &lt;em&gt; </li>
-              <li><strong>Párrafo &lt; </strong>p&gt; </li>
-              <li><strong>Capa </strong>&lt;div&gt;</strong> </li>
-              <li><strong>Listas anidadas</strong> con viñetas o numeradas &lt;ul&gt; / &lt;ol&gt; </li>
-              <li><strong>Tablas</strong> &lt;table&gt; </li>
-              <li><strong>Enlaces</strong> &lt;a href &gt; </li>
-              
-              <li><strong>Citas</strong> &lt;blockquote&gt;</li>
-              <li><strong>Imágenes</strong> &lt;img&gt; 
-              
-              </li>
-              
-              </ul>
-              <br />
-              <p class="alignLeft">La URL de las imágenes del documento HTML se convierten todas primero a <strong>Base64</strong>, antes de convertir el documento a docx.
-              <br />
-              Los documentos generados admites orientación <strong>RTL</strong> para los textos que requieren escritura de derecha a izquierda. 
-
-              <br /><br />
-              Para poder usar el conversor, solo necesitas incluir los siguientes ficheros que ya vienen incluidos en el .zip para descargar:
-              <br />
-              <ol class="alignLeft">
-              <li><strong>Encargados de guardar el .docx </strong></li>
-              jszip-master/dist/jszip.min.js <br />
-              jszip-master/vendor/FileSaver.js
-
-              <li><strong>Encargado de construir los diferentes documentos que integran y definen la estructura del archivo .docx</strong></li>
-              convert_html_to_docx.js
-              </ol>
-               <br />
-              </p>
-
-              <p class="alignLeft">Probamos un ejemplo a partir del documento de <a href="example.html">ejemplo HTML</a> 
-            que incluye textos en diferentes idiomas, y varias pruebas con los elementos descritos anteriormente</p>
-
-            <div class="buttons-call-action1 alignLeft">
-              <a href="convert-html-to-docx.html" class="">Generar docx</a> 
-              <a href="convert-html-to-docx.zip" class="bt2">Descargar Conversor</a>
-            </div>
-            
-            
-            <p class="alignLeft"> Librería disponible en <a href="https://github.com/amalamrani/convert-html-to-docx">GitHub</a></p>
-
-              </div>
-               
-            </div>
-        </div>
-              
-        
-        </div>
-
-        
-        <div class="section1_1">
-
-          <div class="section group ">
-            <div class="col div_4cols_of_4 ">
-             
-              
-            </div>
-          </div>
-
-       
-
-
-       
-      
-
-        
-              
-     </div><!-- end sectio1-1 -->
-
-      </section>
-
-    </div> <!-- end wraper1-->  
-    <footer id="footer" >
-      
-     
-        <div class="wrapper1">   
-        <div class="content" > 
-      
-          <div class="section group">
-          <div class="col div_4cols_of_4" id="contacto"><h2>Contact</h2></div>
-          </div>
-
-          <div class="section group ">         
-             <div class="col div_2cols_of_4 ">
-
-               <span id="mail"><a href="mailto:hola@amrani.es">hola@amrani.es</a></span>
-               <span id="phone">+34 606 78 11 19</span>
-             </div>
-             <div class="col div_2cols_of_4 col_bottom">
-              <div class="media-icons"> 
-                  <a href="https://twitter.com/amrani_es"><img src="../../images/twitter.png" /></a>
-                  <a href="https://www.linkedin.com/in/amrani"><img src="../../images/linkedin.png" /></a>
-
-              </div>
-            </div>
-
-          </div><!-- end section group-->
-      
-        
-        </div><!-- end content-->
-
-      
-        
-       </div><!-- end wraper1-->
-    </footer>
-    
-  </div><!-- end wrapper -->
-  
-  </div><!-- end container -->
-  
 
 
 </body>
