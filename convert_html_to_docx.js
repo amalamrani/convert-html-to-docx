@@ -44,8 +44,8 @@ function ConversionCompleted(){
     // Call function to generat docx
     var myDocx = generateDocx(docu);
    
-   
-    saveAs(myDocx, "example.docx");
+   // included in generateDocx function!
+    /*saveAs(myDocx, "example.docx");*/
 
 }
 
@@ -1167,13 +1167,30 @@ function generateDocx(doc){
 			zip.file('word/document.xml', XmlDocumentDocx);
 			zip.file('word/styles.xml',estilos);   
 			zip.file('word/numbering.xml',numberingString);
+
+
+		
+		
+/*
+var zip2 = new JSZip();
+	  zip2.file("Hello.txt", "Hello World\n");
+	
+	  zip2.generateAsync({type:"blob"})
+	  .then(function(content) {
+	      // see FileSaver.js
+	      console.log("Just below Comment");
+	      saveAs(content, "example.zip");
+	      console.log("Just below saveAs");
+	  });*/
+			
 				
-			var content = zip.generate({type:"blob"});
-
-			
 			
 
-		return content;
+			// new lib jszip version			
+			zip.generateAsync({type:"blob"}).then(function(content) {
+			    // see FileSaver.js
+			    saveAs(content, "example.docx");
+			});			
 		
 		}		
 
